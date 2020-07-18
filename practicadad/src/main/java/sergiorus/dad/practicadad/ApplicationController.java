@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class ApplicationController {
 
 	@RequestMapping ("/greeting")
-	public String greetingController(Model model) {
+	public String greetingsController(Model model) {
 		return "greeting_template";
 	}
 }
