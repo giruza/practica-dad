@@ -1,5 +1,5 @@
 # practica-dad
-Repositorio para la práctica de Desarrollo de aplicaciones distribuidas de GSSV+GIC de la URJC
+Repositorio para la práctica de Desarrollo de aplicaciones distribuidas de GDDV+GIC de la URJC
 
 # fase 1
 Nombre de la aplicación web: PECE componentes
