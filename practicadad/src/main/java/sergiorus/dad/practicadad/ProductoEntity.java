@@ -20,11 +20,10 @@ public class ProductoEntity {
 	
 	public ProductoEntity() {}
 	
-	public ProductoEntity(String nombre, String descripcion, int precio, int stock) {
+	public ProductoEntity(String nombre, String descripcion, int precio) {
 		this.setNombre(nombre);
 		this.setDescripcion(descripcion);
 		this.setPrecio(precio);
-		this.setStock(stock);
 	}
 
 	public String getNombre() {
