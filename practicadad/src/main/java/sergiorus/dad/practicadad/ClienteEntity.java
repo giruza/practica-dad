@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -13,32 +15,42 @@ import javax.persistence.OneToMany;
 @Entity
 public class ClienteEntity {
 	
+	//identificador
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 	
-	private String nombre;
+	//parametros
+	private String name;
 	private String correo;
 	private String contrasena;
 	private String dni;
-	private boolean logeado;
 	
+	//lista de pedidos
 	@OneToMany(mappedBy="cliente")
 	private List<PedidoEntity> pedidos;
 	
+	//lista de productos en el carro
 	@OneToMany
 	private List<ProductoEntity> carro;
 	
+	private String passwordHash;
+	
+	//lista de roles del usuario
+	@ElementCollection(fetch = FetchType.EAGER)
+	List<String> roles;
+	
 	public ClienteEntity() {}
 	
-	public ClienteEntity(String nombre, String correo, String contrasena, String dni, boolean logeado) {
-		this.setNombre(nombre);
+	public ClienteEntity(String name, String correo, String contrasena, String dni, String rol) {
+		this.setName(name);
 		this.setCorreo(correo);
 		this.setContrasena(contrasena);
 		this.setDni(dni);
-		this.setLogeado(logeado);
 		pedidos = new ArrayList<PedidoEntity>();
 		carro = new ArrayList<ProductoEntity>();
+		roles = new ArrayList<String>();
+		roles.add(rol);
 	}
 
 	
@@ -52,16 +64,20 @@ public class ClienteEntity {
 	
 	//getters y setters
 	
+	public List<String> getRoles(){
+		return roles;
+	}
+	
 	public List<ProductoEntity> getCarro() {
 		return carro;
 	}
 	
-	public String getNombre() {
-		return nombre;
+	public String getName() {
+		return name;
 	}
 
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
+	public void setName(String nombre) {
+		this.name = name;
 	}
 
 	public String getDni() {
@@ -88,12 +104,12 @@ public class ClienteEntity {
 		this.contrasena = contrasena;
 	}
 
-	public boolean isLogeado() {
-		return logeado;
+	public String getPasswordHash() {
+		return passwordHash;
 	}
 
-	public void setLogeado(boolean logeado) {
-		this.logeado = logeado;
+	public void setPasswordHash(String passwordHash) {
+		this.passwordHash = passwordHash;
 	}
 	
 }

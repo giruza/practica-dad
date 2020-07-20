@@ -17,11 +17,12 @@ public class PedidoController {
 		@Autowired
 		private PedidoRepository repository;
 		
+		/*
 		@PostConstruct
 		public void init() {
-			/*
-			ClienteEntity sergio = new ClienteEntity("sergio", "sergio@hotmail.com", "1234", "26266266A", false);
-			ClienteEntity admin = new ClienteEntity("admin", "admin@hotmail.com", "0120", "26662662B", false);
+			
+			ClienteEntity sergio = new ClienteEntity("sergio", "sergio@hotmail.com", "1234", "26266266A");
+			ClienteEntity admin = new ClienteEntity("admin", "admin@hotmail.com", "0120", "26662662B");
 			
 			ProductoEntity pantalla = new ProductoEntity("Pantalla X24D", "Pantalla de 24 pulgadas y FullHD", 180);
 			ProductoEntity teclado = new ProductoEntity("Teclado Wirecut", "Teclado mecánico y retroiluminación", 75);
@@ -38,6 +39,6 @@ public class PedidoController {
 			
 			PedidoEntity p2 = new PedidoEntity("Repuestos", "adminpago@hotmail.com", "c/Toronto 12", "Alcorcon", admin, admin.getCarro());
 			repository.save(p2);
-			*/
-		}
+			
+		}*/
 }

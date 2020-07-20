@@ -15,15 +15,16 @@ public class ProductoController {
 	@Autowired
 	private ProductoRepository repository;
 	
-	//incluir varios productos en la base de datos
+	/*
 	@PostConstruct
 	public void init() {
 		repository.save(new ProductoEntity("Pantalla X24D", "Pantalla de 24 pulgadas y FullHD", 180));
 		repository.save(new ProductoEntity("Teclado Wirecut", "Teclado mecánico y retroiluminación", 75));
 		repository.save(new ProductoEntity("Ratón L-96", "Ratón diseñado para zurdos", 26));
 	}
+	*/
 	
-	@RequestMapping("/")
+	@RequestMapping("/productos")
 	public String productos(Model model) {
 		
 		model.addAttribute("productos", repository.findAll());

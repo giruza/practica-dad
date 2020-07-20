@@ -8,5 +8,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface PedidoRepository extends JpaRepository<PedidoEntity, Long>{
 
-	List<PedidoEntity> findByCliente_Nombre(String nombre);
+	List<PedidoEntity> findByCliente_Name(String name);
 }
