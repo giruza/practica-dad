@@ -23,7 +23,7 @@ public class ClienteEntity {
 	private String dni;
 	private boolean logeado;
 	
-	@OneToMany(cascade=CascadeType.ALL)
+	@OneToMany(mappedBy="cliente")
 	private List<PedidoEntity> pedidos;
 	
 	@OneToMany

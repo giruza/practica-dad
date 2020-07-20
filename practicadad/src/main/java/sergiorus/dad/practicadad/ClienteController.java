@@ -1,4 +1,4 @@
-/*package sergiorus.dad.practicadad;
+package sergiorus.dad.practicadad;
 
 import javax.annotation.PostConstruct;
 
@@ -14,8 +14,11 @@ public class ClienteController {
 		
 		@PostConstruct
 		public void init() {
-			repository.save(new ClienteEntity("sergio", "sergio@hotmail.com", "1234", "26266266A", false));
-			repository.save(new ClienteEntity("admin", "admin@hotmail.com", "0120", "26662662B", false));
+			
+			ClienteEntity c1 = new ClienteEntity("sergio", "sergio@hotmail.com", "1234", "26266266A", false);
+			ClienteEntity c2 = new ClienteEntity("admin", "admin@hotmail.com", "0120", "26662662B", false);
+			
+			repository.save(c1);
+			repository.save(c2);
 		}
 }
-*/

@@ -19,6 +19,7 @@ public class PedidoController {
 		
 		@PostConstruct
 		public void init() {
+			/*
 			ClienteEntity sergio = new ClienteEntity("sergio", "sergio@hotmail.com", "1234", "26266266A", false);
 			ClienteEntity admin = new ClienteEntity("admin", "admin@hotmail.com", "0120", "26662662B", false);
 			
@@ -29,11 +30,14 @@ public class PedidoController {
 			sergio.alCarro(teclado);
 			sergio.alCarro(raton);
 			
-			repository.save(new PedidoEntity("Mi pedido", "mipaypal@hotmail.com", "c/Nueva 3", "Mostoles", sergio, sergio.getCarro()));
+			PedidoEntity p1 = new PedidoEntity("Mi pedido", "mipaypal@hotmail.com", "c/Nueva 3", "Mostoles", sergio, sergio.getCarro());
+			repository.save(p1);
 			
 			admin.alCarro(pantalla);
 			admin.alCarro(teclado);
 			
-			repository.save(new PedidoEntity("Repuestos", "adminpago@hotmail.com", "c/Toronto 12", "Alcorcon", admin, admin.getCarro()));
+			PedidoEntity p2 = new PedidoEntity("Repuestos", "adminpago@hotmail.com", "c/Toronto 12", "Alcorcon", admin, admin.getCarro());
+			repository.save(p2);
+			*/
 		}
 }
