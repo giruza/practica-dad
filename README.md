@@ -1,4 +1,4 @@
-# practica-dad
+# practica-dad: PECE COMPONENTES
 Repositorio para la práctica de Desarrollo de aplicaciones distribuidas de GDDV+GIC de la URJC
 
 # fase 1
