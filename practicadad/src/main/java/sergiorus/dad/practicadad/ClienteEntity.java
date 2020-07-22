@@ -12,6 +12,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
 @Entity
 public class ClienteEntity {
 	
@@ -22,8 +24,8 @@ public class ClienteEntity {
 	
 	//parametros
 	private String name;
-	private String correo;
-	private String contrasena;
+	private String email;
+	private String password;
 	private String dni;
 	
 	//lista de pedidos
@@ -34,18 +36,21 @@ public class ClienteEntity {
 	@OneToMany
 	private List<ProductoEntity> carro;
 	
-	private String passwordHash;
-	
 	//lista de roles del usuario
 	@ElementCollection(fetch = FetchType.EAGER)
 	List<String> roles;
 	
 	public ClienteEntity() {}
 	
-	public ClienteEntity(String name, String correo, String contrasena, String dni, String rol) {
-		this.setName(name);
-		this.setCorreo(correo);
-		this.setContrasena(contrasena);
+	public ClienteEntity(String nombre, String correo, String contrasena, String dni, String rol) 
+	{
+		this.setName(nombre);
+		this.setEmail(correo);
+		
+		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+		String contrasenaCrypt = passwordEncoder.encode(contrasena);
+		
+		this.setPassword(contrasenaCrypt);
 		this.setDni(dni);
 		pedidos = new ArrayList<PedidoEntity>();
 		carro = new ArrayList<ProductoEntity>();
@@ -54,62 +59,95 @@ public class ClienteEntity {
 	}
 
 	
-	public void alCarro(ProductoEntity producto) {
+	public void alCarro(ProductoEntity producto) 
+	{
 		this.carro.add(producto);
 	}
 	
-	public void vaciarCarro() {
+	public void vaciarCarro() 
+	{
 		this.carro.clear();
 	}
 	
 	//getters y setters
 	
-	public List<String> getRoles(){
+	public List<String> getRoles()
+	{
 		return roles;
 	}
 	
-	public List<ProductoEntity> getCarro() {
+	public List<ProductoEntity> getCarro() 
+	{
 		return carro;
 	}
 	
-	public String getName() {
+	public String getName() 
+	{
 		return name;
 	}
 
-	public void setName(String nombre) {
-		this.name = name;
+	public void setName(String nombre) 
+	{
+		this.name = nombre;
 	}
 
-	public String getDni() {
+	public String getDni() 
+	{
 		return dni;
 	}
 
-	public void setDni(String dni) {
+	public void setDni(String dni) 
+	{
 		this.dni = dni;
 	}
 
-	public String getCorreo() {
-		return correo;
+	public String getEmail() 
+	{
+		return email;
 	}
 
-	public void setCorreo(String correo) {
-		this.correo = correo;
+	public void setEmail(String correo) 
+	{
+		this.email = correo;
 	}
 
-	public String getContrasena() {
-		return contrasena;
+	public String getPassword() 
+	{
+		return password;
 	}
 
-	public void setContrasena(String contrasena) {
-		this.contrasena = contrasena;
+	public void setPassword(String contrasena) 
+	{
+		this.password = contrasena;
 	}
-
-	public String getPasswordHash() {
-		return passwordHash;
+	
+	@Override
+	public int hashCode() 
+	{
+		final int primenumber = 31;
+		int result = 1;
+		result = primenumber * result + ((name == null) ? 0 : name.hashCode());
+		return result;
 	}
-
-	public void setPasswordHash(String passwordHash) {
-		this.passwordHash = passwordHash;
+	
+	@Override
+	public boolean equals(Object object) 
+	{
+		if(this == object)
+			return true;
+		if(object == null)
+			return false;
+		if(getClass() != object.getClass())
+			return false;
+		ClienteEntity otherClient = (ClienteEntity) object;
+		if(name == null) {
+			if(otherClient.name != null)
+				return false;
+		}else if(!name.equals(otherClient.getName())) {
+			return false;
+		}
+		
+		return true;
 	}
 	
 }

@@ -1,10 +1,13 @@
 package sergiorus.dad.practicadad;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
@@ -19,12 +22,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		//paginas publicas
 		security.authorizeRequests().antMatchers("/").permitAll();
 		security.authorizeRequests().antMatchers("/greeting").permitAll();
-		security.authorizeRequests().antMatchers("/tienda").permitAll();
-		security.authorizeRequests().anyRequest().authenticated();
+		security.authorizeRequests().antMatchers("/store").permitAll();
+		security.authorizeRequests().antMatchers("/login").permitAll();
+		security.authorizeRequests().antMatchers("/loginerror").permitAll();
 		//...
 		
 		//paginas privadas
-		security.authorizeRequests().antMatchers("/estadisticas").hasAnyRole("A");
+		security.authorizeRequests().antMatchers("/stats").hasAnyRole("ADMIN");
 		//...
 		
 		//parametros para el login y pagina de login
@@ -32,21 +36,24 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		security.formLogin().usernameParameter("username");
 		security.formLogin().passwordParameter("password");
 		security.formLogin().defaultSuccessUrl("/greeting");
-		security.formLogin().failureUrl("/greeting");
+		security.formLogin().failureUrl("/loginerror");
 		
 		//parametros de logout
-		security.logout().logoutUrl("/logout");
+		security.logout().logoutUrl("/logoutsuccess");
 		security.logout().logoutSuccessUrl("/greeting");
 		
-		security.csrf().disable();
+		//security.csrf().disable();
 	}
 	
 	@Override
 	 protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 
 		auth.authenticationProvider(authenticationProvider);
-		//auth.inMemoryAuthentication().withUser("client").password("pass").roles("CLIENT");
-		//auth.inMemoryAuthentication().withUser("admin").password("pass").roles("ADMIN");
-	 
+	}
+	
+	@Bean
+	public PasswordEncoder passwordEncoder()
+	{
+		return new BCryptPasswordEncoder();
 	}
 }

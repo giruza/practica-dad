@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html>
+<body>
+	<h1>CERRANDO SESION</h1>
+	<p>Vas a cerrar sesion.</p>
+	<form method="post" action="/logoutsuccess">
+		<input type="submit" value="Cerrar sesion" />
+		<input type="hidden" name="_csrf" value="{{token}}" />
+	</form>
+</body>
+</html>

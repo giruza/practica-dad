@@ -1,15 +1,38 @@
+<!DOCTYPE html>
 <html>
 <body>
 
-<h1>BIENVENIDO A PECE COMPONENTES!</h1>
-	<p>Hola de nuevo,,</p>
+<h1>PECE COMPONENTES, TU TIENDA DE ELECTRONICA DE CONFIANZA</h1>
+	<p>{{username}}</p>
 	
 	{{#admin}}
-	<ahref="/admin">administrador</a>
+	<p>Estas accediendo a la pagina en modo administrador.</p>
+	
+	<form method "post" action="/stats">
+		<input type="submit" value="Estadisticas" />
+	</form>
 	{{/admin}}
 	
-	{{#client}}
-	<ahref="/client">Admin Page</a>
-	{{/client}}
+	{{#logged}}
+	<form method "post" action="/store">
+		<input type="submit" value="Tienda" />
+	</form>
+	<form method "post" action="/logout">
+		<input type="submit" value="Cerrar sesion" />
+		<input type="hidden" name="_csrf" value={{token}} />
+	</form>
+	{{/logged}}
+	
+	{{^logged}}
+	<form method "post" action="/login">
+		<input type="submit" value="Iniciar sesion" />
+		<input type="hidden" name="_csrf" value={{token}} />
+	</form>
+	<form method "post" action="/logup">
+		<input type="submit" value="Registrarse" />
+		<input type="hidden" name="_csrf" value={{token}} />
+	</form>
+	{{/logged}}
+	
 </body>
 </html>

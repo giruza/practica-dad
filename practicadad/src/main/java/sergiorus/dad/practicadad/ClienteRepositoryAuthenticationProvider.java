@@ -3,11 +3,10 @@ package sergiorus.dad.practicadad;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.naming.AuthenticationException;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -22,21 +21,23 @@ public class ClienteRepositoryAuthenticationProvider implements AuthenticationPr
 	private ClienteRepository clientes;
 	
 	@Override
-	public Authentication authenticate(Authentication auth){
+	public Authentication authenticate(Authentication auth) throws AuthenticationException{
 		
-		ClienteEntity cliente = clientes.findByName(auth.getName());
+		ClienteEntity cliente = clientes.findFirstByName(auth.getName());
 		
-		if(cliente == null) {
+		if(cliente == null) 
 			throw new BadCredentialsException("Cliente no encontrado");
-		}
+		
 		
 		String password = (String) auth.getCredentials();
-		if(!new BCryptPasswordEncoder().matches(password, cliente.getPasswordHash())) {
+		
+		if(!new BCryptPasswordEncoder().matches(password, cliente.getPassword())) 
 			throw new BadCredentialsException("Contraseña incorrecta");
-		}
 	
 		List<GrantedAuthority> roles = new ArrayList<>();
-		for(String role: cliente.getRoles()) {
+		
+		for(String role: cliente.getRoles()) 
+		{
 			roles.add(new SimpleGrantedAuthority(role));
 		}
 		

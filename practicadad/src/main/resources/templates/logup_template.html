@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h1>CREA UNA CUENTA EN PECE COMPONENTES</h1>
+	<p>Introduce a continuacion los datos necesarios para crear tu cuenta, por favor.</p>
+	<br>
+	<form action = "/register" method = "post">
+    	<p>Tu nombre de usuario: </p>
+    	<input type="text" placeholder="usuario123" name="name" required/></div>
+    	<p>Tu correo electronico (lo usaremos para enviarte las facturas de tus pedidos): </p>
+    	<input type="text" placeholder="correo@domain.com" name="email" required/></div>
+    	<p>Tu contrasena: </p>
+    	<input type="password" placeholder="password0&" name="password" required/></div>
+    	<p>Tu documento de identificacion fiscal, para la facturacion: </p>
+    	<input type="text" placeholder="00000000X" name="dni" required/></div>
+    	<br>
+    	<input type="submit" value="Crear cuenta" />
+    	<input type="hidden" name="_csrf"value="{{token}}"/>
+    </form>
+    <p></p>
+	<br>
+	
+	<form method "post" action="/greeting">
+		<input type="submit" value="Volver" />
+	</form>
+	
+</body>
+</html>

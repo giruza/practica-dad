@@ -20,7 +20,6 @@ public class PedidoController {
 		/*
 		@PostConstruct
 		public void init() {
-			
 			ClienteEntity sergio = new ClienteEntity("sergio", "sergio@hotmail.com", "1234", "26266266A");
 			ClienteEntity admin = new ClienteEntity("admin", "admin@hotmail.com", "0120", "26662662B");
 			
@@ -39,6 +38,5 @@ public class PedidoController {
 			
 			PedidoEntity p2 = new PedidoEntity("Repuestos", "adminpago@hotmail.com", "c/Toronto 12", "Alcorcon", admin, admin.getCarro());
 			repository.save(p2);
-			
 		}*/
 }

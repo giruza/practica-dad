@@ -1,11 +1,24 @@
 <!DOCTYPE html>
 <html>
 <body>
-	<h1>Private page!</h1>
-	<p>This is a private page</p>
-	<form method="post" action="/logout">
-		<input type="submit" value="Sign Out" />
-		<input type="hidden" name="_csrf" value="{{token}}" />
+
+<h1>INICIO DE SESION</h1>
+	<p>Introduce tu nombre de usuario y contrasena, por favor</p>
+	<br>
+	<form action = "/loginattempt" method = "post">
+    	<p>Usuario: </p>
+    	<input type="text" placeholder="Introduzca el usuario" name="user" required/></div>
+    	<p>Contrasena: </p>
+    	<input type="password" placeholder="Introduzca la contrasena" name="password" required/></div>
+    	<br>
+    	<input type="submit" value="Iniciar sesion" />
+    	<input type="hidden" name="_csrf"value="{{token}}"/>
+    </form>
+    <p></p>
+	<br>
+	<form method "post" action="/greeting">
+		<input type="submit" value="Volver" />
 	</form>
+	
 </body>
 </html>
