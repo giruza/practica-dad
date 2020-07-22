@@ -38,6 +38,30 @@ public class PedidoEntity {
 		this.productos = productos;
 	}
 
+	public String getContentString() {
+		
+		String content = "Has realizado con éxito tu pedido " + nombre_pedido + ".\n";
+		content += "Recibirás tu pedido en los próximos días, ";
+		content += "en tu dirección seleccionada: " + direccion_entrega + ", ";
+		content += "en el municipio de " + municipio +".\n";
+		content += "Tu pedido contiene los siguientes productos: \n";
+		for(ProductoEntity producto: productos) {
+			content += producto.getNombre() + ": " + producto.getDescripcion() + "\n";
+		}
+		content += "Si surge cualquier problema con tu pedido, ponte en contacto con nosotros.\n";
+		content += "Muchas gracias por confiar en PECE componentes.";
+		
+		return content;
+	}
+	
+	public String getEmail() {
+		return cliente.getEmail();
+	}
+	
+	public long getId() {
+		return id;
+	}
+	
 	public String getNombre_pedido() {
 		return nombre_pedido;
 	}

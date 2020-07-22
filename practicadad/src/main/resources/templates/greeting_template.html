@@ -8,27 +8,27 @@
 	{{#admin}}
 	<p>Estas accediendo a la pagina en modo administrador.</p>
 	
-	<form method "post" action="/stats">
+	<form action="/stats">
 		<input type="submit" value="Estadisticas" />
 	</form>
 	{{/admin}}
 	
 	{{#logged}}
-	<form method "post" action="/store">
+	<form action="/store">
 		<input type="submit" value="Tienda" />
 	</form>
-	<form method "post" action="/logout">
+	<form action="/logout">
 		<input type="submit" value="Cerrar sesion" />
 		<input type="hidden" name="_csrf" value={{token}} />
 	</form>
 	{{/logged}}
 	
 	{{^logged}}
-	<form method "post" action="/login">
+	<form action="/login">
 		<input type="submit" value="Iniciar sesion" />
 		<input type="hidden" name="_csrf" value={{token}} />
 	</form>
-	<form method "post" action="/logup">
+	<form action="/logup">
 		<input type="submit" value="Registrarse" />
 		<input type="hidden" name="_csrf" value={{token}} />
 	</form>

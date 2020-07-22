@@ -34,6 +34,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		security.authorizeRequests().antMatchers("/cart").hasAnyRole("CLIENT");
 		security.authorizeRequests().antMatchers("/createpetition").hasAnyRole("CLIENT");
 		security.authorizeRequests().antMatchers("/submitpetition").hasAnyRole("CLIENT");
+		security.authorizeRequests().antMatchers("/sendpetitionmail").hasAnyRole("CLIENT");
+		//security.authorizeRequests().antMatchers("/sendpetitionmail").permitAll();
 		//...
 		
 		//parametros para el login y pagina de login

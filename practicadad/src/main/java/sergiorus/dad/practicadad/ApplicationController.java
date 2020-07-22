@@ -7,6 +7,9 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import java.net.URI;
+import java.net.URISyntaxException;
+
 import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -24,6 +27,7 @@ import org.springframework.security.web.csrf.CsrfToken;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.client.RestTemplate;
 
 
 @Controller
@@ -47,8 +51,8 @@ public class ApplicationController {
 	private ProductoRepository productoRepository;
 	
 	//Incluir un repositorio de pedidos
-		@Autowired
-		private PedidoRepository pedidoRepository;
+	@Autowired
+	private PedidoRepository pedidoRepository;
 	
 	///////////////////////////
 	//REDIRECCIONAR A PAGINAS//
@@ -101,7 +105,7 @@ public class ApplicationController {
 	
 	//INTENTAR INICIAR SESION
 	
-	@PostMapping("/loginattempt")
+	@RequestMapping("/loginattempt")
 	public String ourProjectInit (Model model , HttpSession session, @RequestParam String user, @RequestParam String password) throws Exception {
 			
 		ClienteEntity usuario = clienteRepository.findFirstByName(user);
@@ -259,7 +263,6 @@ public class ApplicationController {
 	@RequestMapping("/submitpetition")
 	public String submitpetition(Model model, HttpSession session, HttpServletRequest request, @RequestParam String nombrepedido, @RequestParam String paypal, @RequestParam String direccion, @RequestParam String municipio) {
 		
-		System.out.println("entra");
 		List<ProductoEntity> carro = (List<ProductoEntity>) session.getAttribute("carro");
 		List<ProductoEntity> productos = new ArrayList<ProductoEntity>();
 		List<String> usados = new ArrayList<String>();
@@ -279,8 +282,41 @@ public class ApplicationController {
 		PedidoEntity nuevoPedido = new PedidoEntity(nombrepedido, paypal, direccion, municipio, cliente, productos);
 		pedidoRepository.save(nuevoPedido);
 		
+		session.setAttribute("ultimopedido", nuevoPedido.getId());
+		
 		return "petitionsuccess_template";
 	}
+	
+	//ENVIAR CORREO CON EL PEDIDO
+	
+	@PostMapping("/sendpetitionmail")
+	public String sendpetitionemail(Model model, HttpSession session) throws URISyntaxException {
+		
+		System.out.println("Intenta enviar pedido");
+		
+		Long pedido_id = (Long) session.getAttribute("ultimopedido");
+		PedidoEntity pedido = pedidoRepository.findFirstById(pedido_id);
+		
+		//Ahora configuramos el envío del correo
+		
+		String sender_email = "pececomponentesdad@gmail.com";
+		String receiver_email = pedido.getEmail();
+		String title = "Se ha realizado tu pedido " + pedido.getNombre_pedido() + " en PECE componentes.";
+		String content = pedido.getContentString();
+		
+		RestTemplate rest = new RestTemplate();
+		
+		String url ="http://localhost:9997/sendpetitionemail";
+		URI uri = new URI(url);
+		Email email = new Email(sender_email, receiver_email, title, content);
+		
+		rest.postForEntity(uri, email, String.class).getBody();
+		
+		System.out.println("Ha hecho todo esto");
+		
+		return "redirect:/greeting";
+	}
+	
 	//IR A LAS ESTADISTICAS
 	
 	@RequestMapping("/stats")
