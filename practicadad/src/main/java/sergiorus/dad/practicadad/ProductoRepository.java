@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ProductoRepository extends JpaRepository<ProductoEntity, Long>{
 	
+	List<ProductoEntity> findAll();
 	List<ProductoEntity> findByNombre(String nombre);
 	List<ProductoEntity> findByPrecio(String precio);
-	Page<ProductoEntity> findAll(Pageable page);
 }

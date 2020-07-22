@@ -1,104 +1,58 @@
 <!DOCTYPE html>
-<link type="text/css" rel="stylesheet" href="css/base_style.css">
-
 <html>
-
-<head>
-<title>PECE COMPONENTES</title>
-</head>
 
 <body>
 
-
 <h1>TIENDA</h1>
-	<p>Todos nuestros productos al mejor precio</p>
-	<br>
-	
+<p>Todos nuestros productos al mejor precio</p>
+<br>
 
-<div class="baseImage">
-	<div class="registroText">
-		<form action="ver_carrito">
-			{{#fallo}}
-			No hay suficientes articulos seleccionados para añadirlos al carrito.
-			{{/fallo}}
-			{{#user}}
-					<input type="submit" class="baseButton" value="Mi Carrtito"> 
-			{{/user}}	
-				</form>
-			{{#productos}}
-			<ul class="tablaBase">
-				<li>
-				<ul class="tablaBase">
-					<li>
-						<ul class="tablaInt">
-						<li class="elementosBase">Nombre</li>
-						<li class="elementosCorto">Precio</li>
-						<li class="elementosLargo">Descripcion</li>
-						<li class="elementosCorto">Stock</li>
-						</ul>
-					</li>
-					<br>
-					<li>
-						<ul class="tablaInt">
-						<li class="elementosBase">{{name}}</li>
-						<li class="elementosCorto">{{price}}</li>
-						<li class="elementosLargo">{{description}}</li>
-						<li class="elementosCorto">{{stock}}</li>
-						</ul>
-					</li>
-					<br>
-				</ul>
-				{{#user}}
-					<form action="aniadir_carrito">
-						<input type="hidden" name= id value={{id}} readonly/>
-						<input type="number" name= "quantity" value="1"/>
-						<input type="submit" class="catalogoButton" value="Aniadir al carrito"> 
-					</form>
-				{{/user}}
-				{{#admin}}	
-					<form action="modificar_producto">
-						<input type="hidden" name= id value={{id}} readonly/>
-						<input type="submit" class="catalogoButton" value="Modificar"> 
-					</form>
-					<form action="borrar_producto">
-						<input type="hidden" name= id value={{id}} readonly/>
-					<input type= 'submit' class="catalogoButton" value='Borrar'/>
-					</form>
-					{{/admin}}
-					</li>
-				</ul>
-				<br>
-				<br>
-			{{/productos}}
-			<br>
-			<form action="catalogo">
-			<input type="hidden" name=numPag value={{numPag}} readonly/>
-					<input type="submit" class="baseButton" value="Siguiente"> 
-					<input type="hidden" name="_csrf" value="{{token}}"/>
-			</form>
-			<form action="busqueda_producto">
-				<input type= 'submit' class="baseButton" value='Busqueda Avanzada'/>
-				<input type="hidden" name="_csrf" value="{{token}}"/>
-			</form>
-			{{#admin}}
-			<form action="alta_producto">
-				<input type= 'submit' class="baseButton" value='Registrar un Producto'/>
-				<input type="hidden" name="_csrf" value="{{token}}"/>
-			</form>
-			{{/admin}}
-			<form action="greeting">
-				<input type= 'submit' value='Volver'/>
-				<input type="hidden" name="_csrf" value="{{token}}"/>
-			</form>
-			<!--  {{#trabajador}}-->
-			
-			<!-- {{/trabajador}}-->
-	</div>
-</div>
+<table>
+<tr>
+<td>
+<form action = "/cart"">
+    <input type="submit" value="Ir al carro" />
+</form>
+</td>
+<td>	
+<form action = "/greeting"">
+    <input type="submit" value="Volver" />
+</form>
+<td>
+</tr>
+<tr>
+<td>___________________<td>
+</tr>
+</table>	
 	
-	<form action = "/greeting"">
-    	<input type="submit" value="Volver" />
-    </form>
+<table>
+	{{#productos}}
+	<tr>
+	<td>Nombre del producto:</td>
+	<td>{{nombre}}</td>
+	</tr>
+	<tr>
+	<td>Descripcion del producto:</td>
+	<td>{{descripcion}}</td>
+	</tr>
+	<tr>
+	<td>Precio de venta:</td>
+	<td>{{precio}} euros</td>
+	</tr>
+	<td>
+	<form action="/addproduct">
+		<input type="hidden" name= id value={{id}} readonly/>
+		<input type="submit"value="Incluir en mi pedido"> 
+	</form>
+	</td>
+	<tr>
+	<tr>
+	<td>___________________<td>
+	</tr>
+	<tr>
+	{{/productos}}
+</table>	
+
 	
 </body>
 </html>

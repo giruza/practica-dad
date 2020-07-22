@@ -24,6 +24,7 @@ public class ProductoEntity {
 		this.setNombre(nombre);
 		this.setDescripcion(descripcion);
 		this.setPrecio(precio);
+		this.setStock((int) Math.random()*100);
 	}
 
 	public String getNombre() {

@@ -193,15 +193,18 @@ public class ApplicationController {
 	
 	//IR A LA TIENDA
 	@RequestMapping("/store")
-	public String store(Model model, @RequestParam int numpag) {
+	public String store(Model model) {
 		
-		Page<ProductoEntity> productos = productoRepository.findAll(new PageRequest(numpag, 3));
+		List<ProductoEntity> productos = productoRepository.findAll();
 		
 		model.addAttribute("productos", productos);
-		model.addAttribute("numPag", numpag+1);
 		
 		return "store_template";
 	}
+	
+	//AÑADIR UN PRODUCTO AL CARRO
+	
+	
 	
 	//IR A LAS ESTADISTICAS
 	
