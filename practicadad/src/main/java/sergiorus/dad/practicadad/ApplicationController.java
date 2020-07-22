@@ -46,6 +46,10 @@ public class ApplicationController {
 	@Autowired
 	private ProductoRepository productoRepository;
 	
+	//Incluir un repositorio de pedidos
+		@Autowired
+		private PedidoRepository pedidoRepository;
+	
 	///////////////////////////
 	//REDIRECCIONAR A PAGINAS//
 	///////////////////////////
@@ -120,15 +124,17 @@ public class ApplicationController {
 		SecurityContext securitycontext = SecurityContextHolder.getContext();
 		    
 		securitycontext.setAuthentication(auth);
-		   
+		
+		List<ProductoEntity> carro = new ArrayList<ProductoEntity>();
 		    
 		session.setAttribute("username", user);
 		session.setAttribute("password", password);
 		session.setAttribute("roles", roles);
 		session.setAttribute("token", auth);
+		session.setAttribute("carro", carro);
 		    
 		session.setMaxInactiveInterval(600);
-		    
+		
 		return "redirect:/greeting";
 	}
 	
@@ -154,7 +160,7 @@ public class ApplicationController {
 			throw new Exception("Nombre de usuario ya en uso");
 		}
 		
-		ClienteEntity registroCliente = new ClienteEntity(name, password, email, dni, "ROLE_CLIENT");
+		ClienteEntity registroCliente = new ClienteEntity(name, email, password, dni, "ROLE_CLIENT");
 		clienteRepository.save(registroCliente);
 		
 		return "redirect:/greeting";
@@ -204,8 +210,77 @@ public class ApplicationController {
 	
 	//AÑADIR UN PRODUCTO AL CARRO
 	
+	@RequestMapping("/addproduct")
+	public String addproduct(Model model, String id, HttpSession session) {
+		
+		long id_long = Long.parseLong(id);
+		ProductoEntity producto = productoRepository.findFirstById(id_long);
+		
+		System.out.println("Añadido producto " + producto.getNombre() + " al usuario " + session.getAttribute("username").toString());
+		
+		List<ProductoEntity> carro = (List<ProductoEntity>) session.getAttribute("carro");
+		carro.add(producto);
+		session.setAttribute("carro", carro);
+		
+		return "redirect:/store";
+	}
+	
+	//VISUALIZAR EL CONTENIDO DEL CARRO
+	
+	@RequestMapping("/cart")
+	public String cart(Model model, HttpSession session) {
+		
+		List<ProductoEntity> carro = (List<ProductoEntity>) session.getAttribute("carro");
+		model.addAttribute("productos", carro);
+		
+		int total = 0;
+		int precio;
+		
+		for(ProductoEntity producto: carro) {
+			precio = producto.getPrecio();
+			total += precio;
+		}
+		
+		model.addAttribute("total", total);
+		
+		return "cart_template";
+	}
+	
+	//CREAR UN PEDIDO
+	
+	@RequestMapping("/createpetition")
+	public String createpetition(Model model) {
+		return "petition_template";
+	}
 	
 	
+	//FORMALIZAR PEDIDO
+	
+	@RequestMapping("/submitpetition")
+	public String submitpetition(Model model, HttpSession session, HttpServletRequest request, @RequestParam String nombrepedido, @RequestParam String paypal, @RequestParam String direccion, @RequestParam String municipio) {
+		
+		System.out.println("entra");
+		List<ProductoEntity> carro = (List<ProductoEntity>) session.getAttribute("carro");
+		List<ProductoEntity> productos = new ArrayList<ProductoEntity>();
+		List<String> usados = new ArrayList<String>();
+		String nameproduct;
+		
+		String nombre = request.getUserPrincipal().getName();
+		ClienteEntity cliente = clienteRepository.findByName(nombre);
+		
+		for (ProductoEntity producto: carro){
+			nameproduct = producto.getNombre();
+			if(!usados.contains(nameproduct)) {
+				usados.add(nameproduct);
+				productos.add(producto);
+			}
+		}
+		
+		PedidoEntity nuevoPedido = new PedidoEntity(nombrepedido, paypal, direccion, municipio, cliente, productos);
+		pedidoRepository.save(nuevoPedido);
+		
+		return "petitionsuccess_template";
+	}
 	//IR A LAS ESTADISTICAS
 	
 	@RequestMapping("/stats")

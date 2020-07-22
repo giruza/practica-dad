@@ -22,13 +22,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		//paginas publicas
 		security.authorizeRequests().antMatchers("/").permitAll();
 		security.authorizeRequests().antMatchers("/greeting").permitAll();
-		security.authorizeRequests().antMatchers("/store").permitAll();
 		security.authorizeRequests().antMatchers("/login").permitAll();
 		security.authorizeRequests().antMatchers("/loginerror").permitAll();
 		//...
 		
 		//paginas privadas
 		security.authorizeRequests().antMatchers("/stats").hasAnyRole("ADMIN");
+		
+		security.authorizeRequests().antMatchers("/store").hasAnyRole("CLIENT");
+		security.authorizeRequests().antMatchers("/addproduct").hasAnyRole("CLIENT");
+		security.authorizeRequests().antMatchers("/cart").hasAnyRole("CLIENT");
+		security.authorizeRequests().antMatchers("/createpetition").hasAnyRole("CLIENT");
+		security.authorizeRequests().antMatchers("/submitpetition").hasAnyRole("CLIENT");
 		//...
 		
 		//parametros para el login y pagina de login

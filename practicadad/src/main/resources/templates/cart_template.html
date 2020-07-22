@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+
+<h1>TU CARRO</h1>
+<p>Aqui puedes comprobar los objetos que has incluido en tu carro.</p>
+<p>Puedes formalizar el pedido o vaciar el carro si has cambiado de idea.</p>
+<br>
+
+<table>
+<tr>
+<td>
+<form action = "/createpetition"">
+    <input type="submit" value="Comenzar el pedido"/>
+</form>
+</td>
+<td>
+<form action = "/deletecart"">
+    <input type="submit" value="Vaciar mi carro"/>
+</form>
+</td>
+<td>	
+<form action = "/greeting"">
+    <input type="submit" value="Volver" />
+</form>
+<td>
+</tr>
+<tr>
+<td>___________________<td>
+</tr>
+</table>	
+	
+<table>
+	{{#productos}}
+	<tr>
+	<td>Nombre del producto:</td>
+	<td>{{nombre}}</td>
+	</tr>
+	<tr>
+	<td>Descripcion del producto:</td>
+	<td>{{descripcion}}</td>
+	</tr>
+	<tr>
+	<td>Precio de venta:</td>
+	<td>{{precio}} euros</td>
+	</tr>
+	<tr>
+	<td>___________________<td>
+	</tr>
+	{{/productos}}
+</table>	
+
+	
+</body>
+</html>

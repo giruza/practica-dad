@@ -59,5 +59,9 @@ public class ProductoEntity {
 		this.stock = stock;
 	}
 	
+	public long getId() {
+		return this.id;
+	}
+	
 	
 }

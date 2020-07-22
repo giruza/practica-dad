@@ -32,10 +32,6 @@ public class ClienteEntity {
 	@OneToMany(mappedBy="cliente")
 	private List<PedidoEntity> pedidos;
 	
-	//lista de productos en el carro
-	@OneToMany
-	private List<ProductoEntity> carro;
-	
 	//lista de roles del usuario
 	@ElementCollection(fetch = FetchType.EAGER)
 	List<String> roles;
@@ -53,20 +49,8 @@ public class ClienteEntity {
 		this.setPassword(contrasenaCrypt);
 		this.setDni(dni);
 		pedidos = new ArrayList<PedidoEntity>();
-		carro = new ArrayList<ProductoEntity>();
 		roles = new ArrayList<String>();
 		roles.add(rol);
-	}
-
-	
-	public void alCarro(ProductoEntity producto) 
-	{
-		this.carro.add(producto);
-	}
-	
-	public void vaciarCarro() 
-	{
-		this.carro.clear();
 	}
 	
 	//getters y setters
@@ -74,11 +58,6 @@ public class ClienteEntity {
 	public List<String> getRoles()
 	{
 		return roles;
-	}
-	
-	public List<ProductoEntity> getCarro() 
-	{
-		return carro;
 	}
 	
 	public String getName() 

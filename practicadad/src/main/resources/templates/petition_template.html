@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h1>PEDIDO</h1>
+	<p>Se va a proceder al pedido de los productos seleccionados.</p>
+	<p>Por favor, especifica la informacion necesaria para la creacion del pedido.</p>
+	<br>
+	
+	<form method "post" action = "/submitpetition">
+    	<p>Nombre del pedido: </p>
+    	<input type="text" placeholder="perifericos" name="nombrepedido" required/></div>
+    	<p>Tu usuario en paypal, mediante el que se realizara el pago:  </p>
+    	<input type="text" placeholder="paypal.me/sergio" name="paypal" required/></div>
+    	<p>La direccion en la que quieres recibir el pedido:</p>
+    	<input type="text" placeholder="c/ dalia, 4, 6A" name="direccion" required/></div>
+    	<p>El municipio donde se entrega: </p>
+    	<input type="text" placeholder="mostoles" name="municipio" required/></div>
+    	<br>
+    	<input type="submit" value="Formalizar pedido" />
+    </form>
+    <p></p>
+	<br>
+	
+	<form method "post" action="/greeting">
+		<input type="submit" value="Volver" />
+	</form>
+	
+</body>
+</html>
