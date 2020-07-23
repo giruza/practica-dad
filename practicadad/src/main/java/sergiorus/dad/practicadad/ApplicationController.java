@@ -284,13 +284,16 @@ public class ApplicationController {
 		
 		session.setAttribute("ultimopedido", nuevoPedido.getId());
 		
+		CsrfToken token = (CsrfToken) request.getAttribute("_csrf"); 
+		model.addAttribute("token", token.getToken()); 
+		
 		return "petitionsuccess_template";
 	}
 	
 	//ENVIAR CORREO CON EL PEDIDO
 	
 	@PostMapping("/sendpetitionmail")
-	public String sendpetitionemail(Model model, HttpSession session) throws URISyntaxException {
+	public String sendpetitionmail(Model model, HttpSession session) throws URISyntaxException {
 		
 		System.out.println("Intenta enviar pedido");
 		
