@@ -309,7 +309,8 @@ public class ApplicationController {
 		
 		RestTemplate rest = new RestTemplate();
 		
-		String url ="http://localhost:9997/sendpetitionemail";
+		//String url ="http://localhost:9997/sendpetitionemail";
+		String url = "http://myhaproxy:9999/sendpetitionemail";
 		URI uri = new URI(url);
 		Email email = new Email(sender_email, receiver_email, title, content);
 		
