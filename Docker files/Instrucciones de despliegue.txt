@@ -1,0 +1,24 @@
+
+docker network create our_net
+
+docker pull mysql/mysql-server
+docker run --name=mysql1 --network=our_net -d mysql/mysql-server
+docker logs mysql1 2>&1
+docker exec -it mysql1 mysql -uroot -p[password]
+	ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'pass';
+	create database test;
+	create user 'root'@'%' identified by 'pass';
+	grant all on test.* to 'root'@'%';
+[Ctrl+Z]
+
+docker build -f apirest-dockerfile -t "apirest" .
+docker run -p 9998:9997 --name=apirest1 --network=our_net apirest
+docker run -p 9999:9997 --name=apirest2 --network=our_net apirest
+[Ctrl+C]
+
+docker build -f application-dockerfile -t "application" .
+docker run -p 9001:8443 --name=web1 --network=our_net application
+docker run -p 9002:8443 --name=web2 --network=our_net application
+
+docker build -f haproxy-dockerfile -t "haproxy" .
+docker run -p 1936:1936 -p 8080:8080 -p 9997:9997 -p 8443:8443 --name=haproxy --network=our_net haproxy
