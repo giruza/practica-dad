@@ -65,3 +65,33 @@ En los siguientes diagramas se muestra cómo quedaría el modelo de datos de la 
 ![Screenshot](Archivos_readme/entidadrelacion.png)
 
 ![Screenshot](Archivos_readme/UML.png)
+
+# fase 3
+
+En la fase 3 la aplicación ya debe ser completamente funcional, implementando seguridad con Spring Security de manera que las páginas que se habían previsto que fueran privadas lo sean. Además, se debe definir la interfaz de comunicación entre la aplicación y el servicio interno e implementar este de manera que sea funcional.
+
+## clases y templates
+
+A continuación se muestra un diagrama de clases de la aplicación, con las relaciones entre controladores, repositorios y entidades, así como el acceso a los templates HTML de la página. Esto se realiza de forma centralizada desde el Application Controller. Se ha utilizado un código de colores para mayor claridad.
+
+![Screenshot](Archivos_readme/classesandtemplates.png)
+
+## obtención de .jar
+
+En el caso de que queramos desplegar la aplicación, necesitaremos eventualmente los archivos .jar que ejecutan las aplicaciones, tanto el servicio web como el servicio interno. Es bastante sencillo obtenerlos, el proceso es el siguiente:
+
+· En STS, accedemos a los proyectos con los que hemos estado trabajando, tanto para el servicio web como para la API REST. Nos aseguramos de que los cambios estén guardados y todo correcto antes de construir el .jar.
+
+· Una vez asegurado esto, hacemos click derecho en el proyecto, seleccionamos Run as y dentro Maven build. Esto debería construir el proyecto devolviendo el archivo .jar, generalmente en la carpeta /target del proyecto.
+
+· Si quisieramos lanzar esta aplicación directamente, lo podemos hacer desde la consola de comandos ejecutando
+  java -jar {nombre del archivo .jar}
+
+# fase 4
+
+Esta es la fase final del proyecto, en ella no se introducen funcionalidades adicionales sino que se orienta a la tolerancia a fallos. Para ello es necesario desplegar la aplicación mediante contenedores docker, implementando técnicas que permitan que la aplicación funcione aunque se caiga algún nodo y que todos los servicios funcionen aunque haya un balanceador de carga.
+
+## despliegue
+
+Para 
+
