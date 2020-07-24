@@ -93,5 +93,42 @@ Esta es la fase final del proyecto, en ella no se introducen funcionalidades adi
 
 ## despliegue
 
-Para 
+El despliegue se realiza de la siguiente forma. Como podemos comprobar en el diagrama a continuación, se ha levantado en un docker cada una de las aplicaciones implicadas, así como la base de datos MySQL. El balanceador Haproxy tiene su propio docker y se encarga de conectar los front ends con los back ends para redirigir a los puertos correspondientes.
+
+![Screenshot](Archivos_readme/dockers.png)
+
+## instrucciones
+
+Para poder realizar este proceso correctamente, lo primero que tenemos que hacer es instalar docker en nuestro sistema. Una vez que lo tenemos, ya podemos levantar los dockers necesarios. Para hacerlo directamente con este proyecto de github, lo descargamos y accedemos a la carpeta de Docker files. En ella abrimos una consola de comandos y ejecutamos lo siguiente.
+
+Lo primero es crear la red y luego el docker de la base de datos y configurarla para que se pueda acceder a ella con la contraseña que tienen especificadas las aplicaciones.
+
+docker network create our_net
+
+docker pull mysql/mysql-server
+docker run --name=mysql1 --network=our_net -d mysql/mysql-server
+docker logs mysql1 2>&1
+docker exec -it mysql1 mysql -uroot -p[password]
+	ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'pass';
+	create database test;
+	create user 'root'@'%' identified by 'pass';
+	grant all on test.* to 'root'@'%';
+
+Después, ya podemos construir y ejecutar los dockers de las api rest;
+
+docker build -f apirest-dockerfile -t "apirest" .
+docker run -p 9998:9997 --name=apirest1 --network=our_net apirest
+docker run -p 9999:9997 --name=apirest2 --network=our_net apirest
+
+También los dockers de las aplicaciones web,
+
+docker build -f application-dockerfile -t "application" .
+docker run -p 9001:8443 --name=web1 --network=our_net application
+docker run -p 9002:8443 --name=web2 --network=our_net application
+
+Y por último del balanceador de carga Haproxy.
+
+docker build -f haproxy-dockerfile -t "haproxy" .
+docker run -p 1936:1936 -p 8080:8080 -p 9997:9997 -p 8443:8443 --name=haproxy --network=our_net haproxy
+
 
