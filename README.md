@@ -30,7 +30,7 @@ En esta fase se debe definir e implementar la aplicación web con base de datos 
 
 La página de inicio de la aplicación es /greeting, y desde aquí se puede acceder a la mayoría de pantallas de la aplicación. A continuación se muestra un diagrama del flujo de navegación por la página.
 
-![alt text](./Archivos readme/Navegacion.png "diagrama de flujo")
+![Screenshot](./Archivos readme/Navegacion.png)
 
 En la página principal encontramos, cuando accedemos sin logear, dos opciones: iniciar sesión, o registrarnos. Si ya tenemos una cuenta podemos iniciar sesión, si no, será necesario que nos registremos. Si intentamos acceder a una página que requiere login sin estar logueados se nos redirigirá a la página de login.
 
