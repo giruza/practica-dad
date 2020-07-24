@@ -30,31 +30,31 @@ En esta fase se debe definir e implementar la aplicación web con base de datos 
 
 La página de inicio de la aplicación es /greeting, y desde aquí se puede acceder a la mayoría de pantallas de la aplicación. A continuación se muestra un diagrama del flujo de navegación por la página.
 
-![Screenshot](Archivos readme/Navegacion.png)
+![Screenshot](Archivos_readme/Navegacion.png)
 
 En la página principal encontramos, cuando accedemos sin logear, dos opciones: iniciar sesión, o registrarnos. Si ya tenemos una cuenta podemos iniciar sesión, si no, será necesario que nos registremos. Si intentamos acceder a una página que requiere login sin estar logueados se nos redirigirá a la página de login.
 
-![alt text](./Archivos readme/greeting.PNG "diagrama de flujo - Modal")
+![Screenshot](Archivos_readme/greeting.PNG)
 
 En la página de login, se nos pide introducir nuestro nombre de usuario y contraseña, si es correcto se nos envía de vuelta a greeting mostrando nuevas opciones, si no, seguimos en el login.
 
-![alt text](./Archivos readme/login.PNG "diagrama de flujo - Modal")
+![Screenshot](Archivos_readme/login.PNG)
 
 En cuanto al registro, se nos pide introducir los datos necesarios para crear un nuevo cliente: el nombre de usuario, la contraseña, el correo en el que recibiremos los mensajes y el DNI a modo de identificador. Una vez creada la cuenta nos redirige al inicio.
 
-![alt text](./Archivos readme/logup.PNG "diagrama de flujo - Modal")
+![Screenshot](Archivos_readme/logup.PNG)
 
 Una vez logueados, podemos ir a logout si queremos cerrar sesión, en cuyo caso se nos notifica que se va a cerrar la sesión y luego se vuelve al inicio. Por otra parte, ya podemos acceder a la tienda, donde vemos la lista de productos disponibles para comprar.
 
-![alt text](./Archivos readme/store.PNG "diagrama de flujo - Modal")
+![Screenshot](Archivos_readme/store.PNG)
 
 Cuando añadimos los productos en los que estamos interesados, podemos ir a nuestro carro para ver la lista de productos que hemos seleccionado.
 
-![alt text](./Archivos readme/cart.PNG "diagrama de flujo - Modal")
+![Screenshot](Archivos_readme/cart.PNG)
 
 Si estamos seguros de que tenemos los productos que queremos comprar, podemos iniciar el pedido. A continuación se nos pide introducir los datos necesarios para crear un pedido nuevo: el nombre del pedido, la dirección a la que se enviará, el método de pago y el municipio en el que se entrega.
 
-![alt text](./Archivos readme/petition.PNG "diagrama de flujo - Modal")
+![Screenshot](Archivos_readme/petition.PNG)
 
 Una vez tenemos los datos del pedido, podemos confirmarlo, se nos informa de que se enviará un correo a nuestra dirección, y se nos redirige a inicio.
 
@@ -62,6 +62,6 @@ Una vez tenemos los datos del pedido, podemos confirmarlo, se nos informa de que
 
 En los siguientes diagramas se muestra cómo quedaría el modelo de datos de la aplicación, expresado tanto en un diagrama entidad relación como en un diagrama de clases UML.
 
-![alt text](./Archivos readme/entidadrelacion.png "E/R")
+![Screenshot](Archivos_readme/entidadrelacion.png)
 
-![alt text](./Archivos readme/UML.png "UML")
+![Screenshot](Archivos_readme/UML.png)
